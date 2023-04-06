@@ -6,12 +6,12 @@ cabal-version: 1.12
 
 name:           lisp
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/lisp#readme>
-homepage:       https://github.com/githubuser/lisp#readme
-bug-reports:    https://github.com/githubuser/lisp/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2023 Author name here
+description:    Please see the README on GitHub at <https://github.com/SerginoBradford/lisp#readme>
+homepage:       https://github.com/SerginoBradford/lisp#readme
+bug-reports:    https://github.com/SerginoBradford/lisp/issues
+author:         Sergino Bradford GOUNOUKPEROU
+maintainer:     1serginobradford@gmail.com
+copyright:      2023 Sergino Bradford GOUNOUKPEROU
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -21,7 +21,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/lisp
+  location: https://github.com/SerginoBradford/lisp
 
 library
   exposed-modules:
@@ -77,6 +77,28 @@ test-suite lisp-test
       base >=4.7 && <5
     , containers
     , hspec
+    , lisp
+    , mtl
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , tasty-smallcheck
+  default-language: Haskell2010
+
+benchmark criterion-benchmarks
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_lisp
+  hs-source-dirs:
+      benchmark
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , criterion
+    , hspec
+    , linear
     , lisp
     , mtl
     , tasty

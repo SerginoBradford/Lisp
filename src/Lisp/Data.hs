@@ -14,7 +14,8 @@ module Lisp.Data
         Expr(..),
         Result(..),
         RError(..),
-        Context(..)
+        Context(..),
+        Function
     ) where
 
 import Text.ParserCombinators.Parsec

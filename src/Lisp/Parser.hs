@@ -49,13 +49,13 @@ parseSymbol = do f <- firstAllowed
 -- | Function for List parsing.
 parseList :: P.Parser Expr
 parseList = do _ <- P.char '(' ; P.skipMany P.space
-               x <- parseExprAux `P.sepEndBy` (P.many1 P.space)
+               x <- parseExprAux `P.sepEndBy` P.many1 P.space
                _ <- P.char ')'
                return $ List x
 
 -- | Try different parsers and return the one who succeed.
 parseExprAux :: P.Parser Expr
-parseExprAux = (P.try parseInteger) P.<|> (P.try parseSymbol) P.<|> (P.try parseList)
+parseExprAux = P.try parseInteger P.<|> P.try parseSymbol P.<|> P.try parseList
 
 -- | Parsing the expression.
 parseExpr :: P.Parser Expr

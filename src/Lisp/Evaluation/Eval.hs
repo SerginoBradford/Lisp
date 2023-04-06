@@ -40,11 +40,10 @@ eval (Symbol s) = do
               else case parentCtx of
                      Nothing -> throwError ("Symbol " ++ s ++ " is unbound.")
                      (Just parent) -> lookupSymbol parent
-
 eval (List (x:xs)) = do
       fn <- eval x
-      apply fn
-	where apply (Special f expectedArgs) = apply' expectedArgs xs f
+      apply fn xs
+	{-where apply (Special f expectedArgs) = apply' expectedArgs xs f
 	      apply (Function f expectedArgs) = do args <- mapM eval xs
                                                    apply' expectedArgs args f
               apply' expectedArgs args f = do modify pushContext
@@ -52,6 +51,24 @@ eval (List (x:xs)) = do
                                               result <- f
                                               modify popContext
                                               return result
+              applyArgsToContext ("...":_) args = do updateSymbol "..." (List args)
+              applyArgsToContext (earg:expectedArgs) (arg:args) = do updateSymbol earg arg
+                                                                     applyArgsToContext expectedArgs args
+              applyArgsToContext [] _ = return ()-}
+
+
+apply :: Expr -> [Expr] -> Result
+apply (Special f expectedArgs) list = apply' expectedArgs list f
+apply (Function f expectedArgs) list = do args <- mapM eval list
+                                          apply' expectedArgs args f
+
+apply' :: [String] -> [Expr] -> Lisp.Data.Function -> Result              
+apply' expectedArgs args f = do modify pushContext
+                                applyArgsToContext expectedArgs args
+                                result <- f
+                                modify popContext
+                                return result
+                                where
               applyArgsToContext ("...":_) args = do updateSymbol "..." (List args)
               applyArgsToContext (earg:expectedArgs) (arg:args) = do updateSymbol earg arg
                                                                      applyArgsToContext expectedArgs args

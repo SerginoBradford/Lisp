@@ -80,3 +80,39 @@ tests:
     - containers
     - hspec
     - mtl
+
+# benchmark:
+#   lisp-benchmark:
+#     main:                Main.hs
+#     source-dirs:         benchmark
+#     ghc-options:
+#     - -O2
+#     - -threaded
+#     - -rtsopts
+#     - -with-rtsopts=-N
+#     dependencies:
+#     - base
+#     - Testing
+#     - criterion
+#     - random
+
+benchmarks:
+  criterion-benchmarks:
+    dependencies:
+      - criterion
+      - linear
+      - lisp
+      - tasty
+      - tasty-quickcheck
+      - tasty-smallcheck
+      - tasty-hunit
+      - containers
+      - hspec
+      - mtl
+    ghc-options:
+      - -O2
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: benchmark

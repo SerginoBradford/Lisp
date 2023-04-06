@@ -23,6 +23,8 @@ SRCS	=	$(shell find ./app ./src -name "*.hs")
 
 TESTS	=	$(shell find ./test -name '*.hs')
 
+BENCHS	=	$(shell find ./benchmark -name '*.hs')
+
 USELESS		=	$(shell find ./test -type f -name "*~" -o -name "*.o" -o -name "*.hi" -o -name "*.dyn_hi" -o -name "*.dyn_o" -o -name "\#*\#")
 
 BIN_DIR		=	$(shell stack path --local-install-root)
@@ -38,6 +40,9 @@ all:	$(SRCS)
 
 tests_run:	$(TESTS)
 	@stack test
+
+bench_run:	$(BENCHS)
+	@stack bench
 
 clean:
 	@stack clean --full
